@@ -1,4 +1,4 @@
-﻿open System
+open System
 
 let getLastDigit number =
     let absNumber = abs number  
@@ -6,22 +6,20 @@ let getLastDigit number =
 
 let rec getNumbersFromUser () =
     printf "Введите числа через пробел: "
-    let input = Console.ReadLine()
+    let input = Console.ReadLine()  
     
     try
-        let numberStrings = input.Split(' ')      
-        let numbers = List.map int (Array.toList numberStrings) 
-        numbers 
+        
+        input.Split(' ') 
+        |> Seq.map int 
+        |> Seq.toList   
     with
-        | :? FormatException -> 
-            printfn "Ошибка: Только числа!"
-            getNumbersFromUser () 
+    | :? FormatException ->  
+        printfn "Ошибка: Введите только числа, разделенные пробелами!"
+        getNumbersFromUser ()  
 
-
-let numbers = getNumbersFromUser ()
-let lastDigits = List.map getLastDigit numbers
+let numbers = getNumbersFromUser () 
+let lastDigits = List.map getLastDigit numbers  
 
 printfn "Исходный список чисел: %A" numbers
 printfn "Список последних цифр: %A" lastDigits
-
-
